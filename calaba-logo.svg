@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="140" viewBox="0 0 240 140" role="img" aria-label="CalABA">
+  <rect width="240" height="140" rx="16" fill="#ffffff" stroke="#1e3a5f" stroke-width="4"/>
+  <rect x="16" y="16" width="208" height="108" rx="12" fill="#e6f0fb"/>
+  <text x="120" y="70" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" fill="#1e3a5f">CalABA</text>
+  <text x="120" y="98" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="600" fill="#0f766e">California ABA</text>
+</svg>

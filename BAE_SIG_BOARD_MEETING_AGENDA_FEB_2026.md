@@ -10,9 +10,9 @@
 
 | Resource | Link |
 |----------|------|
-| **Planning Doc** | `/home/neo/clawd/repos/bae-sig-book-raffle/CALABA_2026_RECEPTION_PLANNING.md` |
-| **Book Raffle App** | `/home/neo/clawd/repos/bae-sig-book-raffle/index.html` |
-| **Speaker List** | `/home/neo/clawd/repos/bae-sig-book-raffle/SPEAKER_LIST.md` |
+| **Planning Doc** | `CALABA_2026_RECEPTION_PLANNING.md` |
+| **Book Raffle App** | `index.html` |
+| **Speaker List** | `SPEAKER_LIST.md` |
 | **Firebase Hosting** | (Pending deployment via california.bae.sig@gmail.com) |
 
 ---
