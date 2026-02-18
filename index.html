@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://www.paypal.com/sdk/js?client-id=LIVE_CLIENT_ID&currency=USD"></script>
     <style>
         :root {
             --calaba-blue: #1e3a5f;
@@ -432,6 +433,11 @@
         .ticket-option:hover .price {
             color: var(--calaba-teal);
         }
+
+        .ticket-option.selected {
+            border-color: var(--calaba-teal);
+            box-shadow: 0 12px 24px rgba(8, 145, 178, 0.2);
+        }
         
         .ticket-option.featured {
             border-color: var(--calaba-teal);
@@ -822,30 +828,44 @@
                 <span class="urgency-text"><strong>Online sales end Friday, March 6 at 12 PM!</strong> Get your tickets now before the cutoff.</span>
             </div>
             
+            <div style="display: grid; gap: 12px; margin: 16px 0 20px;">
+                <input type="text" id="buyer-name" placeholder="Your full name" required
+                    style="width: 100%; padding: 12px 16px; border: 2px solid var(--border); border-radius: 10px; font-size: 15px; font-family: inherit; outline: none; transition: border-color 0.2s;"
+                    onfocus="this.style.borderColor='var(--calaba-teal)'" onblur="this.style.borderColor='var(--border)'">
+                <input type="email" id="buyer-email" placeholder="Your email address" required
+                    style="width: 100%; padding: 12px 16px; border: 2px solid var(--border); border-radius: 10px; font-size: 15px; font-family: inherit; outline: none; transition: border-color 0.2s;"
+                    onfocus="this.style.borderColor='var(--calaba-teal)'" onblur="this.style.borderColor='var(--border)'">
+            </div>
+
             <div class="ticket-grid">
-                <a href="#" class="ticket-option" id="ticket-1">
+                <a href="#" class="ticket-option" id="ticket-1" data-tickets="1" data-amount="10">
                     <span class="price">$10</span>
                     <span class="count">1 ticket</span>
                     <span class="per-ticket">$10 each</span>
                 </a>
-                <a href="#" class="ticket-option" id="ticket-3">
+                <a href="#" class="ticket-option" id="ticket-3" data-tickets="3" data-amount="25">
                     <span class="price">$25</span>
                     <span class="count">3 tickets</span>
                     <span class="per-ticket">$8.33 each</span>
                 </a>
-                <a href="#" class="ticket-option featured" id="ticket-7">
+                <a href="#" class="ticket-option featured" id="ticket-7" data-tickets="7" data-amount="40">
                     <span class="price">$40</span>
                     <span class="count">7 tickets</span>
                     <span class="per-ticket">$5.71 each</span>
                 </a>
             </div>
 
-            <button class="btn-primary pulse" id="buy-btn">
-                <span>🎟️</span>
-                <span>Buy Tickets via Venmo</span>
-            </button>
+            <div id="paypal-button-container" style="margin-top: 16px;"></div>
+            <p id="paypal-error" style="display: none; color: #ef4444; font-size: 13px; margin-top: 8px; text-align: center;"></p>
+            <p id="paypal-success" style="display: none; color: var(--success); font-size: 13px; margin-top: 8px; text-align: center;"></p>
+            <div style="margin-top: 14px; text-align: center;">
+                <a id="paypal-fallback" href="https://www.paypal.com/ncp/payment/REPLACE_WITH_LIVE" target="_blank" class="btn-secondary" style="display: inline-block; font-size: 14px; padding: 10px 18px;">
+                    Pay with PayPal (fallback)
+                </a>
+                <p style="font-size: 12px; color: var(--text-secondary); margin-top: 6px;">Use this if the PayPal buttons do not load.</p>
+            </div>
             
-            <a href="#" class="btn-secondary" id="donate-btn">
+            <a href="https://paypal.me/REPLACE_WITH_PAYPAL_ME" class="btn-secondary" id="donate-btn" target="_blank">
                 💚 Make a Direct Donation
             </a>
 
@@ -908,46 +928,110 @@
         updateCountdown();
         setInterval(updateCountdown, 1000);
         
-        // Venmo configuration
-        const VENMO_USERNAME = 'CalABA';
-        
-        function openVenmo(amount, note) {
-            const venmoUrl = `venmo://paycharge?txn=pay&recipients=${VENMO_USERNAME}&amount=${amount}&note=${encodeURIComponent(note)}`;
-            const webUrl = `https://venmo.com/${VENMO_USERNAME}?txn=pay&amount=${amount}&note=${encodeURIComponent(note)}`;
-            
-            window.location.href = venmoUrl;
-            setTimeout(() => {
-                window.location.href = webUrl;
-            }, 500);
-            
-            // Trigger confetti
-            createConfetti();
+        function validateBuyer() {
+            const name = document.getElementById('buyer-name').value.trim();
+            const email = document.getElementById('buyer-email').value.trim();
+            if (!name) {
+                document.getElementById('buyer-name').style.borderColor = '#ef4444';
+                document.getElementById('buyer-name').focus();
+                return null;
+            }
+            if (!email || !email.includes('@')) {
+                document.getElementById('buyer-email').style.borderColor = '#ef4444';
+                document.getElementById('buyer-email').focus();
+                return null;
+            }
+            return { name, email };
         }
-        
-        document.getElementById('ticket-1').addEventListener('click', (e) => {
-            e.preventDefault();
-            openVenmo(10, 'BAE SIG Raffle - 1 Ticket');
+
+        let selectedTicketCount = 7;
+        let selectedAmount = 40;
+
+        document.querySelectorAll('.ticket-option').forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelectorAll('.ticket-option').forEach(o => o.classList.remove('selected'));
+                option.classList.add('selected');
+                selectedTicketCount = parseInt(option.dataset.tickets);
+                selectedAmount = parseInt(option.dataset.amount);
+                renderPayPalButtons();
+            });
         });
-        
-        document.getElementById('ticket-3').addEventListener('click', (e) => {
-            e.preventDefault();
-            openVenmo(25, 'BAE SIG Raffle - 3 Tickets');
-        });
-        
-        document.getElementById('ticket-7').addEventListener('click', (e) => {
-            e.preventDefault();
-            openVenmo(40, 'BAE SIG Raffle - 7 Tickets');
-        });
-        
-        document.getElementById('buy-btn').addEventListener('click', (e) => {
-            e.preventDefault();
-            openVenmo(40, 'BAE SIG Raffle - 7 Tickets');
-        });
-        
-        document.getElementById('donate-btn').addEventListener('click', (e) => {
-            e.preventDefault();
-            openVenmo('', 'BAE SIG Donation');
-        });
+
+        document.getElementById('ticket-7').classList.add('selected');
+
+        function renderPayPalButtons() {
+            const container = document.getElementById('paypal-button-container');
+            const errorEl = document.getElementById('paypal-error');
+            const successEl = document.getElementById('paypal-success');
+            container.innerHTML = '';
+            errorEl.style.display = 'none';
+            successEl.style.display = 'none';
+
+            if (!window.paypal) {
+                errorEl.textContent = 'PayPal failed to load. Use the fallback link below.';
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            paypal.Buttons({
+                style: {
+                    layout: 'vertical',
+                    color: 'blue',
+                    shape: 'rect',
+                    label: 'paypal',
+                    height: 45
+                },
+                createOrder: function(data, actions) {
+                    const buyer = validateBuyer();
+                    if (!buyer) {
+                        errorEl.textContent = 'Please enter your name and email to continue.';
+                        errorEl.style.display = 'block';
+                        return Promise.reject('Missing buyer info');
+                    }
+                    return actions.order.create({
+                        purchase_units: [{
+                            description: `BAE SIG Raffle - ${selectedTicketCount} Ticket${selectedTicketCount > 1 ? 's' : ''}`,
+                            amount: {
+                                currency_code: 'USD',
+                                value: selectedAmount.toFixed(2)
+                            }
+                        }]
+                    });
+                },
+                onApprove: async function(data, actions) {
+                    const buyer = validateBuyer();
+                    if (!buyer) return;
+                    try {
+                        await actions.order.capture();
+                        successEl.textContent = `Payment received. Thank you, ${buyer.name}! Your raffle tickets are reserved.`;
+                        successEl.style.display = 'block';
+                        createConfetti();
+                        const donations = JSON.parse(localStorage.getItem('bae_sig_raffle_donations') || '[]');
+                        donations.push({
+                            timestamp: new Date().toISOString(),
+                            name: buyer.name,
+                            email: buyer.email,
+                            amount: selectedAmount,
+                            ticketCount: selectedTicketCount,
+                            method: 'paypal'
+                        });
+                        localStorage.setItem('bae_sig_raffle_donations', JSON.stringify(donations));
+                    } catch (error) {
+                        console.error(error);
+                        errorEl.textContent = 'Payment processed, but we could not confirm. Please email california.bae.sig@gmail.com.';
+                        errorEl.style.display = 'block';
+                    }
+                },
+                onError: function(err) {
+                    console.error(err);
+                    errorEl.textContent = 'PayPal error. Please use the fallback link below.';
+                    errorEl.style.display = 'block';
+                }
+            }).render('#paypal-button-container');
+        }
+
+        renderPayPalButtons();
         
         // Confetti
         const canvas = document.getElementById('confetti');
