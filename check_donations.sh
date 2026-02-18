@@ -9,11 +9,16 @@ NOTIFICATION_DRAFTS_DIR="$SCRIPT_DIR/notification_drafts"
 
 # Get access token
 get_token() {
+    if [ -z "$GMAIL_CLIENT_ID" ] || [ -z "$GMAIL_CLIENT_SECRET" ] || [ -z "$GMAIL_REFRESH_TOKEN" ]; then
+        echo "Missing Gmail OAuth env vars (GMAIL_CLIENT_ID / GMAIL_CLIENT_SECRET / GMAIL_REFRESH_TOKEN)" >&2
+        exit 1
+    fi
+
     curl -s --request POST \
         --url "https://oauth2.googleapis.com/token" \
-        --data "client_id=REDACTED_GOOGLE_CLIENT_ID" \
-        --data "client_secret=REDACTED_GOOGLE_CLIENT_SECRET" \
-        --data "refresh_token=REDACTED_GOOGLE_REFRESH_TOKEN" \
+        --data "client_id=$GMAIL_CLIENT_ID" \
+        --data "client_secret=$GMAIL_CLIENT_SECRET" \
+        --data "refresh_token=$GMAIL_REFRESH_TOKEN" \
         --data "grant_type=refresh_token" | python3 -c "import sys,json; print(json.load(sys.stdin)['access_token'])"
 }
 

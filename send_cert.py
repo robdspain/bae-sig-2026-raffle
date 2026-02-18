@@ -9,13 +9,21 @@ import sys
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+client_id = os.environ.get('GMAIL_CLIENT_ID')
+client_secret = os.environ.get('GMAIL_CLIENT_SECRET')
+refresh_token = os.environ.get('GMAIL_REFRESH_TOKEN')
+
+if not client_id or not client_secret or not refresh_token:
+    print("Missing Gmail OAuth env vars (GMAIL_CLIENT_ID / GMAIL_CLIENT_SECRET / GMAIL_REFRESH_TOKEN)")
+    sys.exit(1)
+
 # Get token
 result = subprocess.run([
     'curl', '-s', '--request', 'POST',
     '--url', 'https://oauth2.googleapis.com/token',
-    '--data', 'client_id=REDACTED_GOOGLE_CLIENT_ID',
-    '--data', 'client_secret=REDACTED_GOOGLE_CLIENT_SECRET',
-    '--data', 'refresh_token=REDACTED_GOOGLE_REFRESH_TOKEN',
+    '--data', f'client_id={client_id}',
+    '--data', f'client_secret={client_secret}',
+    '--data', f'refresh_token={refresh_token}',
     '--data', 'grant_type=refresh_token'
 ], capture_output=True, text=True)
 
