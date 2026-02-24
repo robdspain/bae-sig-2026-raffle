@@ -98,7 +98,12 @@ Hi [First Name],
 Here's a prize that makes you think differently about what our field can do.
 
 **🌟 Today's Featured Donor: Dr. Caroly Shumway**
-Caroly is a Ph.D. behavior analyst and a founder of the ABA Climate Coalition — a growing movement applying the science of behavior change to the most pressing issue of our time. Climate action isn't separate from behavior analysis. It *is* behavior analysis. Caroly is proving that.
+Caroly is a Ph.D. behavior analyst, founder of the [ABA Climate Coalition](https://www.abaclimate.org), and a CalABA 2026 invited speaker. She's presenting two sessions at the conference this week:
+
+- **March 5 (Workshop):** *Solve Climate Action Problems with Behavior Change* (w/ Rebecca Edgecumbe)
+- **March 7 (Invited Talk):** *Taking Climate Action in Your Life and Work*
+
+Climate action isn't separate from behavior analysis. It *is* behavior analysis. Caroly is one of the people proving it at the highest level.
 
 She's donated **1 free BACB CEU through an ABACC workshop** — a gift certificate for any ABA Climate Coalition training event.
 CEUs that make you think bigger and earn credit while doing it.
