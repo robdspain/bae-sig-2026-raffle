@@ -83,7 +83,7 @@ Whether you want to talk shop, get career advice, or discuss how to bring cultur
 🎟️ **Tickets start at $10 — grab a few and stack your odds.**
 👉 https://calaba-sig-raffle.vercel.app
 
-Every ticket supports all SIGs. Drawing March 7 at the Friday reception.
+Every ticket supports all CalABA Special Interest Groups — the member communities that make our field stronger. Drawing March 7 at the Friday reception.
 
 Talk soon,
 
@@ -114,7 +114,7 @@ CEUs that make you think bigger and earn credit while doing it.
 🎟️ **Tickets start at $10. Drawing March 7.**
 👉 https://calaba-sig-raffle.vercel.app
 
-All proceeds support BAE SIG and the broader SIG community.
+All proceeds support CalABA's Special Interest Groups — member-driven communities that connect behavior analysts around shared areas of practice and advocacy, from education to OBM to climate action.
 
 See you at CalABA,
 
@@ -191,7 +191,9 @@ The prizes are incredible — a private session with Dr. Peter Killeen, a $500 O
 If you haven't grabbed a ticket yet, now's the time:
 👉 https://calaba-sig-raffle.vercel.app
 
-Tickets start at $10 — discounts when you buy more. Huge prizes. All SIGs benefit.
+Tickets start at $10 — discounts when you buy more. Huge prizes.
+
+All proceeds go to CalABA's Special Interest Groups — the member communities organized around education, OBM, ethics, climate action, and more. These groups exist because of people like you who show up and support the work.
 
 See you at CalABA 🎉
 
