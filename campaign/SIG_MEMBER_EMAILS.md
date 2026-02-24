@@ -41,7 +41,12 @@ Hi [First Name],
 Today's prize might be the most valuable in the raffle.
 
 **🌟 Today's Featured Donor: Mellanie Page**
-Mellanie is an OBM (Organizational Behavior Management) practitioner and educator who has built one of the most respected training programs in the field. OBM applies the science of behavior analysis to real-world organizations — improving performance, culture, and outcomes in ways that make our whole field more credible.
+Mellanie is an OBM (Organizational Behavior Management) practitioner, educator, and CalABA 2026 invited speaker. She'll be presenting two sessions at the conference this week:
+
+- **March 5 (Workshop):** *Career Catalyst: How to Use OBM in Your Current Role (or Craft a New One)*
+- **March 6 (Invited Talk):** *Think Like a CEO: Harnessing RFT to Lead Your Business and Life*
+
+OBM applies the science of behavior analysis to real-world organizations — improving performance, culture, and outcomes in ways that make our whole field more credible. If you're attending CalABA, you'll want to catch her sessions.
 
 She's donated **complete access to her OBM Practitioner Program** (valued at $500+).
 If you've ever wanted to expand your practice into organizational settings, work with businesses, or add OBM credentials — this is your ticket in. Literally.
@@ -119,7 +124,9 @@ Hi [First Name],
 Today's prize is one every school-based practitioner should know about.
 
 **🌟 Today's Featured Donor: Reginald Ponio & BABAC**
-Reggie Ponio and the team at BABAC are donating **three copies of the Essential for Living user manual** — the comprehensive functional skills curriculum and assessment tool for learners with developmental disabilities.
+Reggie Ponio and the **Bay Area Behavior Analysis Cooperative (BABAC)** are donating **three copies of the Essential for Living user manual** — the comprehensive functional skills curriculum and assessment tool for learners with developmental disabilities.
+
+BABAC is an inclusive collective of ABA professionals in the San Francisco Bay Area. Their focus: mentorship, education, ethics, compassion, and equity — connecting the Bay Area ABA community through grassroots organizing and infrastructure. If you're in the Bay Area (or want to be connected to it), check them out at **babac.org**.
 
 EFL is one of the most practically useful assessment systems in our field, especially for the population most school-based BCBAs serve every day. Three copies. One winner.
 
