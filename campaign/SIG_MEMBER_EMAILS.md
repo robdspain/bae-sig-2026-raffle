@@ -155,8 +155,8 @@ Hi [First Name],
 
 Last spotlight — and yes, this one's from me.
 
-**🌟 Today's Featured Donor: BehaviorSchool**
-I built BehaviorSchool to give BCBAs and RBTs the best possible exam prep — 10,000+ AI-generated practice questions, mock exams, an AI tutor, and adaptive learning that adjusts to how *you* learn.
+**🌟 Today's Featured Donor: [BehaviorSchool](https://behaviorschool.com)**
+I built [BehaviorSchool](https://behaviorschool.com) to give BCBAs and RBTs the best possible exam prep — 10,000+ AI-generated practice questions, mock exams, an AI tutor, and adaptive learning that adjusts to how *you* learn.
 
 I'm donating a **6-month full access subscription** (valued at $180) — whether you're sitting for the BCBA, the BCaBA, or mentoring someone who is, this is the tool I wish I'd had.
 
@@ -171,7 +171,7 @@ See you in Sacramento,
 
 Rob Spain, BCBA, IBA
 President, BAE SIG
-california.bae.sig@gmail.com
+[robspain.com](https://robspain.com) | california.bae.sig@gmail.com
 
 ---
 
