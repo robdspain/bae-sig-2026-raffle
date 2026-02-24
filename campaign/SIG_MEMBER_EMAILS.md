@@ -72,10 +72,13 @@ Hi [First Name],
 If you work in schools or with underserved communities, today's spotlight is for you.
 
 **🌟 Today's Featured Donor: Portia C. James, BCBA**
-Portia is the CEO of Behavior Genius and a leading voice in culturally responsive, community-centered ABA. She's on a mission to make behavior analysis more equitable — and she's doing it. Behavior Genius is actively building the bridge between the science we love and the communities that need it most.
+Portia is the CEO of [Behavior Genius](https://behaviorgenius.com) and a leading voice in culturally responsive, community-centered ABA — and a CalABA 2026 invited speaker. She's presenting two sessions at the conference this week:
+
+- **March 5 (Workshop):** *Liberation Leadership™ in Practice: A Behavioral Systems Framework for Human-Centered Performance Systems*
+- **March 7 (Invited Talk, Ballroom A):** *Liberation Leadership™: Evolving ABA Workplaces Through Behavioral Systems Design*
 
 She's donated a **signed copy of her book + a 20-minute one-on-one mentor session**.
-Whether you want to talk shop, get career advice, or discuss how to bring culturally responsive practices into your work — this is 20 uninterrupted minutes with someone who's doing the work.
+Whether you want to talk shop, get career advice, or discuss how to bring culturally responsive practices into your work — this is 20 uninterrupted minutes with someone doing the work at the highest level.
 
 🎟️ **Tickets start at $10 — grab a few and stack your odds.**
 👉 https://calaba-sig-raffle.vercel.app
