@@ -709,7 +709,7 @@
                 </div>
                 <div class="event-item">
                     <div class="label">Time</div>
-                    <div class="value">5–8 PM</div>
+                    <div class="value">6–9 PM</div>
                 </div>
                 <div class="event-item">
                     <div class="label">Location</div>
@@ -717,7 +717,7 @@
                 </div>
                 <div class="event-item">
                     <div class="label">Drawings</div>
-                    <div class="value">From 5:30</div>
+                    <div class="value">From 6:30</div>
                 </div>
             </div>
         </div>
@@ -788,8 +788,8 @@
                 </div>
             </div>
             
-            <div class="prize-item">
-                <div class="prize-icon">✊</div>
+            <div class="prize">
+                <img src="https://static.wixstatic.com/media/4ddfbc_459d1af89362400fb82cd477f5faecdb~mv2.png/v1/fill/w_352,h_150,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Behavior%20Genius%20Logo%20.png" alt="Behavior Genius" class="prize-image" style="object-fit: contain; padding: 12px; background: #fff;">
                 <div class="prize-content">
                     <h3>Signed Book + 20-Min Mentor Session with Portia James</h3>
                     <p class="description">A signed copy of Portia's book plus a one-on-one mentor session — career advice, culturally responsive practice, or whatever you want to dig into.</p>
@@ -861,15 +861,15 @@
                 </a>
             </div>
 
-            <div id="paypal-button-container" style="margin-top: 16px;"></div>
             <p id="paypal-error" style="display: none; color: #ef4444; font-size: 13px; margin-top: 8px; text-align: center;"></p>
             <p id="paypal-success" style="display: none; color: var(--success); font-size: 13px; margin-top: 8px; text-align: center;"></p>
-            <div style="margin-top: 14px; text-align: center;">
-                <a id="paypal-fallback" href="https://www.paypal.com/ncp/payment/S2SUQFGT9XSSQ" target="_blank" class="btn-secondary" style="display: inline-block; font-size: 14px; padding: 10px 18px;">
-                    Pay with PayPal (fallback)
+            <div style="margin-top: 16px; text-align: center;">
+                <a id="paypal-fallback" href="https://www.paypal.com/ncp/payment/S2SUQFGT9XSSQ" target="_blank" class="btn-primary" style="display: inline-block; font-size: 16px; font-weight: 700; padding: 14px 28px; background: #0070ba; color: #fff; border-radius: 10px; text-decoration: none; width: 100%; box-sizing: border-box;">
+                    💳 Buy Tickets via PayPal
                 </a>
-                <p style="font-size: 12px; color: var(--text-secondary); margin-top: 6px;">Use this if the PayPal buttons do not load.</p>
+                <p style="font-size: 12px; color: var(--text-secondary); margin-top: 8px;">Secure checkout powered by PayPal</p>
             </div>
+            <div id="paypal-button-container" style="margin-top: 12px; display: none;"></div>
             
             <a href="https://paypal.me/REPLACE_WITH_PAYPAL_ME" class="btn-secondary" id="donate-btn" target="_blank">
                 💚 Make a Direct Donation
@@ -879,7 +879,7 @@
                 <h3>⚠️ Must Be Present to Win</h3>
                 <ul>
                     <li><strong>You must be present to win!</strong> Winners drawn throughout the event.</li>
-                    <li>Raffle drawings begin at 5:30 PM and continue throughout the reception</li>
+                    <li>Raffle drawings begin at 6:30 PM and continue throughout the reception</li>
                     <li>Online ticket sales close Friday at 12 PM</li>
                     <li>Tickets also available at the door during the reception</li>
                 </ul>
@@ -914,7 +914,7 @@
 
     <script>
         // Countdown Timer
-        const eventDate = new Date('March 6, 2026 17:00:00 PST').getTime();
+        const eventDate = new Date('March 6, 2026 18:00:00 PST').getTime();
         
         function updateCountdown() {
             const now = new Date().getTime();
