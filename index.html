@@ -1003,19 +1003,29 @@
                     const buyer = validateBuyer();
                     if (!buyer) return;
                     try {
-                        await actions.order.capture();
+                        const capture = await actions.order.capture();
                         successEl.textContent = `Payment received. Thank you, ${buyer.name}! Your raffle tickets are reserved.`;
                         successEl.style.display = 'block';
                         createConfetti();
-                        const donations = JSON.parse(localStorage.getItem('bae_sig_raffle_donations') || '[]');
-                        donations.push({
-                            timestamp: new Date().toISOString(),
+
+                        // Log purchase to Google Sheet
+                        const salePayload = {
                             name: buyer.name,
                             email: buyer.email,
                             amount: selectedAmount,
-                            ticketCount: selectedTicketCount,
-                            method: 'paypal'
-                        });
+                            tickets: selectedTicketCount,
+                            orderId: capture.id || data.orderID || '',
+                            timestamp: new Date().toISOString()
+                        };
+                        fetch('/api/log-sale', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(salePayload)
+                        }).catch(err => console.warn('Sale log failed:', err));
+
+                        // Also save to localStorage as backup
+                        const donations = JSON.parse(localStorage.getItem('bae_sig_raffle_donations') || '[]');
+                        donations.push({ ...salePayload, method: 'paypal' });
                         localStorage.setItem('bae_sig_raffle_donations', JSON.stringify(donations));
                     } catch (error) {
                         console.error(error);

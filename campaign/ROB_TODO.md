@@ -7,7 +7,7 @@ Generated: 2026-02-20 21:22 PST
 
 ## ✅ DONE (Neo completed)
 
-- [x] 23 speaker emails drafted and ready to send
+- [x] 23 speaker donation request emails sent ✅
 - [x] CSV file created for batch email send
 - [x] 15-day social media calendar created
 - [x] Raffle site verified live (calaba-sig-raffle.vercel.app)
@@ -17,24 +17,7 @@ Generated: 2026-02-20 21:22 PST
 
 ## 🔴 BLOCKING — Need You Tonight/Tomorrow
 
-### 1. Fix Email Sending (Pick One)
-
-**Option A: Resend API (Recommended)**
-```bash
-# Get API key from https://resend.com
-export RESEND_API_KEY='re_xxxxxxxxxxxx'
-
-# Send all 23 emails
-cd "/Volumes/Fast Storage/00-Organized/Work/Neo AI/neo_code_repos/bae-sig-book-raffle"
-python3 email_campaign.py batch --csv campaign/speakers.csv --template donation_request
-```
-
-**Option B: Fix gog CLI**
-```bash
-gog auth add california.bae.sig@gmail.com --services gmail
-```
-
-### 2. Social Media Access
+### 1. Social Media Access
 
 Which accounts should I post to?
 - [ ] BAE SIG Instagram — @?
@@ -68,7 +51,7 @@ Is the raffle site accepting payments?
 
 | Date | Action |
 |------|--------|
-| **Feb 21** | Send all 23 speaker emails |
+| ~~**Feb 21**~~ | ~~Send all 23 speaker emails~~ ✅ Done |
 | **Feb 21** | Post launch announcement on socials |
 | **Feb 22-Mar 5** | Daily social posts (prize reveals, progress) |
 | **Mar 6** | CalABA starts — booth presence |
@@ -94,10 +77,9 @@ More prizes incoming from speaker donations!
 
 ## 📣 Quick Wins When You Sit Down
 
-1. **Send emails** — 23 speakers, 5 minutes with batch send
-2. **Post launch** — Copy Day 1 post from calendar, post to socials
-3. **Confirm payment** — Make sure Stripe/PayPal is working
-4. **Tell Neo** — Which social accounts to use going forward
+1. **Post launch** — Copy Day 1 post from calendar, post to socials
+2. **Confirm payment** — Make sure Stripe/PayPal is working
+3. **Tell Neo** — Which social accounts to use going forward
 
 ---
 
