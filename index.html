@@ -651,6 +651,7 @@
     </style>
     <!-- Vercel Web Analytics -->
     <script defer src="/_vercel/insights/script.js"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=BAARWJfoeglHbFDQEXxsjvCJd0cZuu14" crossorigin="anonymous"></script>
 </head>
 <body>
     <canvas id="confetti"></canvas>
@@ -858,9 +859,7 @@
             </div>
 
             <div style="margin-top: 16px; text-align: center;">
-                <a id="paypal-fallback" href="https://www.paypal.com/ncp/payment/S2SUQFGT9XSSQ?return=https://calaba-sig-raffle.vercel.app/thank-you.html&cancel_return=https://calaba-sig-raffle.vercel.app/" target="_blank" class="btn-primary" style="display: inline-block; font-size: 16px; font-weight: 700; padding: 14px 28px; background: #0070ba; color: #fff; border-radius: 10px; text-decoration: none; width: 100%; box-sizing: border-box;">
-                    💳 Buy Tickets via PayPal
-                </a>
+                <div id="paypal-container-S2SUQFGT9XSSQ"></div>
                 <p style="font-size: 12px; color: var(--text-secondary); margin-top: 8px;">Secure checkout powered by PayPal</p>
             </div>
             <div class="rules">
@@ -1020,6 +1019,13 @@
         }
 
         
+        // PayPal Hosted Button
+        if (typeof paypal !== 'undefined') {
+            paypal.HostedButtons({
+                hostedButtonId: "S2SUQFGT9XSSQ"
+            }).render("#paypal-container-S2SUQFGT9XSSQ");
+        }
+
         // Confetti
         const canvas = document.getElementById('confetti');
         const ctx = canvas.getContext('2d');
