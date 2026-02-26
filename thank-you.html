@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You — BAE SIG Book Raffle | CalABA 2026</title>
+    <meta name="description" content="Your raffle tickets are confirmed! See you at the CalABA 2026 SIG Reception.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a2f 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            color: #fff;
+        }
+        .card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 24px;
+            padding: 48px 40px;
+            max-width: 560px;
+            width: 100%;
+            text-align: center;
+        }
+        .checkmark {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 28px;
+            font-size: 36px;
+            box-shadow: 0 0 40px rgba(16,185,129,0.4);
+        }
+        .badge {
+            display: inline-block;
+            background: rgba(16,185,129,0.15);
+            border: 1px solid rgba(16,185,129,0.4);
+            color: #6ee7b7;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 6px 16px;
+            border-radius: 100px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+        .subtitle {
+            font-size: 17px;
+            color: rgba(255,255,255,0.65);
+            line-height: 1.6;
+            margin-bottom: 36px;
+        }
+        .event-details {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 32px;
+            text-align: left;
+        }
+        .event-details h3 {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #6ee7b7;
+            margin-bottom: 16px;
+        }
+        .detail-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 15px;
+            color: rgba(255,255,255,0.85);
+        }
+        .detail-row:last-child { margin-bottom: 0; }
+        .detail-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(16,185,129,0.15);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 15px;
+        }
+        .reminder-box {
+            background: rgba(251,191,36,0.1);
+            border: 1px solid rgba(251,191,36,0.3);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 32px;
+            font-size: 14px;
+            color: #fde68a;
+            text-align: left;
+            line-height: 1.5;
+        }
+        .reminder-box strong { color: #fbbf24; }
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            padding: 14px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+        .btn:hover { opacity: 0.9; }
+        .footer-note {
+            margin-top: 24px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.4);
+        }
+        .footer-note a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: underline;
+        }
+        canvas#confetti {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="confetti"></canvas>
+    <div class="card">
+        <div class="checkmark">🎉</div>
+        <div class="badge">Payment Confirmed</div>
+        <h1>You're in the raffle!</h1>
+        <p class="subtitle">Your tickets are reserved. Good luck — we'll see you at the SIG Reception on March 6!</p>
+
+        <div class="event-details">
+            <h3>Event Details</h3>
+            <div class="detail-row">
+                <div class="detail-icon">📅</div>
+                <div><strong>Friday, March 6, 2026</strong> — 6:00–9:00 PM</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-icon">📍</div>
+                <div>Room 8 — Sacramento Convention Center</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-icon">🎟️</div>
+                <div>Drawings begin at 6:30 PM throughout the evening</div>
+            </div>
+        </div>
+
+        <div class="reminder-box">
+            <strong>Remember:</strong> You must be present to win! Bring a photo ID or reference your PayPal receipt at the door.
+        </div>
+
+        <a href="https://calaba-sig-raffle.vercel.app" class="btn">Back to Raffle Page</a>
+
+        <p class="footer-note">
+            Questions? Email <a href="mailto:california.bae.sig@gmail.com">california.bae.sig@gmail.com</a><br>
+            Organized by the Behavior Analysts in Education SIG
+        </p>
+    </div>
+
+    <script>
+        // Simple confetti burst on load
+        const canvas = document.getElementById('confetti');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const pieces = Array.from({length: 120}, () => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height - canvas.height,
+            r: Math.random() * 6 + 3,
+            d: Math.random() * 80 + 20,
+            color: ['#10b981','#fbbf24','#3b82f6','#f472b6','#a78bfa'][Math.floor(Math.random()*5)],
+            tilt: Math.random() * 10 - 5,
+            tiltAngle: 0,
+            tiltSpeed: Math.random() * 0.1 + 0.05
+        }));
+
+        let frame = 0;
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            pieces.forEach(p => {
+                ctx.beginPath();
+                ctx.lineWidth = p.r;
+                ctx.strokeStyle = p.color;
+                ctx.moveTo(p.x + p.tilt + p.r/3, p.y);
+                ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.d/5);
+                ctx.stroke();
+
+                p.tiltAngle += p.tiltSpeed;
+                p.y += (Math.cos(frame/20) + 1 + p.r/3) * 1.5;
+                p.tilt = Math.sin(p.tiltAngle) * 12;
+                if (p.y > canvas.height) {
+                    p.x = Math.random() * canvas.width;
+                    p.y = -10;
+                }
+            });
+            frame++;
+            if (frame < 200) requestAnimationFrame(draw);
+            else ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+        draw();
+    </script>
+</body>
+</html>
