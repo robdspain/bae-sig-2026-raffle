@@ -33,13 +33,13 @@ TEMPLATES = {
 <html>
 <head>
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: #2563eb; color: white; padding: 20px; border-radius: 8px 8px 0 0; }
-        .content { background: #f9fafb; padding: 20px; border: 1px solid #e5e7eb; }
-        .footer { background: #374151; color: white; padding: 15px; border-radius: 0 0 8px 8px; text-align: center; }
-        .button { display: inline-block; background: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 10px 0; }
-        .sig-logos { margin-top: 20px; }
+        body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
+        .container {{ max-width: 600px; margin: 0 auto; padding: 20px; }}
+        .header {{ background: #2563eb; color: white; padding: 20px; border-radius: 8px 8px 0 0; }}
+        .content {{ background: #f9fafb; padding: 20px; border: 1px solid #e5e7eb; }}
+        .footer {{ background: #374151; color: white; padding: 15px; border-radius: 0 0 8px 8px; text-align: center; }}
+        .button {{ display: inline-block; background: #2563eb; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 10px 0; }}
+        .sig-logos {{ margin-top: 20px; }}
     </style>
 </head>
 <body>
@@ -91,12 +91,12 @@ TEMPLATES = {
 <html>
 <head>
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: #059669; color: white; padding: 20px; border-radius: 8px 8px 0 0; }
-        .content { background: #f0fdf4; padding: 20px; border: 1px solid #bbf7d0; }
-        .footer { background: #374151; color: white; padding: 15px; border-radius: 0 0 8px 8px; text-align: center; }
-        .highlight { background: #dcfce7; padding: 15px; border-radius: 6px; margin: 15px 0; }
+        body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
+        .container {{ max-width: 600px; margin: 0 auto; padding: 20px; }}
+        .header {{ background: #059669; color: white; padding: 20px; border-radius: 8px 8px 0 0; }}
+        .content {{ background: #f0fdf4; padding: 20px; border: 1px solid #bbf7d0; }}
+        .footer {{ background: #374151; color: white; padding: 15px; border-radius: 0 0 8px 8px; text-align: center; }}
+        .highlight {{ background: #dcfce7; padding: 15px; border-radius: 6px; margin: 15px 0; }}
     </style>
 </head>
 <body>
@@ -142,13 +142,13 @@ TEMPLATES = {
 <html>
 <head>
     <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: linear-gradient(135deg, #7c3aed, #2563eb); color: white; padding: 30px; border-radius: 8px 8px 0 0; text-align: center; }
-        .content { background: #faf5ff; padding: 20px; border: 1px solid #e9d5ff; }
-        .footer { background: #374151; color: white; padding: 15px; border-radius: 0 0 8px 8px; text-align: center; }
-        .prize-box { background: white; padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid #7c3aed; }
-        .button { display: inline-block; background: #7c3aed; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; }
+        body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
+        .container {{ max-width: 600px; margin: 0 auto; padding: 20px; }}
+        .header {{ background: linear-gradient(135deg, #7c3aed, #2563eb); color: white; padding: 30px; border-radius: 8px 8px 0 0; text-align: center; }}
+        .content {{ background: #faf5ff; padding: 20px; border: 1px solid #e9d5ff; }}
+        .footer {{ background: #374151; color: white; padding: 15px; border-radius: 0 0 8px 8px; text-align: center; }}
+        .prize-box {{ background: white; padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 4px solid #7c3aed; }}
+        .button {{ display: inline-block; background: #7c3aed; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; }}
     </style>
 </head>
 <body>
