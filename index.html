@@ -900,8 +900,9 @@
     </footer>
 
     <script>
-        // Countdown Timer
-        const eventDate = new Date('March 6, 2026 18:00:00 PST').getTime();
+        // Countdown Timer - March 6, 2026 at 6:00 PM PST (UTC-8)
+        // Using explicit UTC time: 6 PM PST = 2 AM UTC next day
+        const eventDate = new Date('2026-03-07T02:00:00Z').getTime();
         
         function updateCountdown() {
             const now = new Date().getTime();
