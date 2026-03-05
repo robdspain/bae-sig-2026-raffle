@@ -663,24 +663,10 @@
             <h1>SIG Reception Book Raffle</h1>
             <p>Win books, consultations & more from CalABA speakers!<br><em>Proceeds benefit all CalABA Special Interest Groups</em></p>
             
-            <div class="countdown" id="countdown">
-                <div class="countdown-item">
-                    <span class="countdown-number" id="days">30</span>
-                    <span class="countdown-label">Days</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="hours">12</span>
-                    <span class="countdown-label">Hours</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="minutes">45</span>
-                    <span class="countdown-label">Min</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="countdown-number" id="seconds">30</span>
-                    <span class="countdown-label">Sec</span>
-                </div>
-            </div>
+            <!-- Countdown removed - event is tomorrow! -->
+            <p style="font-size: 1.3rem; font-weight: bold; color: #fbbf24; margin-top: 1rem;">
+                🎟️ Drawing: Tomorrow, March 6 at 6 PM
+            </p>
         </div>
     </div>
 
@@ -900,27 +886,7 @@
     </footer>
 
     <script>
-        // Countdown Timer - March 6, 2026 at 6:00 PM PST (UTC-8)
-        // Using explicit UTC time: 6 PM PST = 2 AM UTC next day
-        const eventDate = new Date('2026-03-07T02:00:00Z').getTime();
-        
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = eventDate - now;
-            
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            document.getElementById('days').textContent = days;
-            document.getElementById('hours').textContent = hours;
-            document.getElementById('minutes').textContent = minutes;
-            document.getElementById('seconds').textContent = seconds;
-        }
-        
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
+        // Countdown removed - replaced with static "Tomorrow" message
         
         function validateBuyer() {
             const name = document.getElementById('buyer-name').value.trim();
