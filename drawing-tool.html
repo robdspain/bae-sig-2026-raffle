@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raffle Drawing Tool</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --calaba-blue: #1e3a5f; --calaba-teal: #0891b2; --calaba-accent: #f59e0b; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: #f9fafb; color: #111827; }
+        .hero { background: linear-gradient(135deg, var(--calaba-blue) 0%, #0c4a6e 50%, var(--calaba-teal) 100%); color: white; padding: 3rem 2rem; text-align: center; }
+        .hero h1 { font-size: 2rem; margin: 0; }
+        .container { max-width: 800px; margin: 0 auto; padding: 2rem; }
+        .card { background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 2rem; }
+        h2 { color: var(--calaba-blue); border-bottom: 2px solid var(--calaba-teal); padding-bottom: 0.5rem; margin-bottom: 1rem;}
+        button { background: var(--calaba-teal); color: white; border: none; padding: 1rem 2rem; border-radius: 0.5rem; font-size: 1.25rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+        button:hover { background: #0c4a6e; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        button:disabled { background: #94a3b8; cursor: not-allowed; }
+        select { font-size: 1.2rem; padding: 0.5rem; border-radius: 0.5rem; border: 1px solid #d1d5db; margin-bottom: 1rem; width: 100%;}
+        #drawn-winners { list-style-type: decimal; padding-left: 0; }
+        #drawn-winners li { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 0.25rem; border-bottom: 1px solid #e5e7eb; font-size: 1.1rem; }
+        .winner-info { flex-grow: 1; }
+        .actions-label { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: #64748b; }
+        .actions-label a { color: var(--calaba-teal); text-decoration: none; font-weight: 600;}
+        input[type="checkbox"] { width: 1.2rem; height: 1.2rem; cursor: pointer; }
+        
+        #winner-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 1000; opacity: 0; transition: opacity 0.3s ease; }
+        #winner-modal { background: white; padding: 2rem; border-radius: 1rem; text-align: center; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); transform: scale(0.95); transition: transform 0.3s ease; max-width: 90%; width: 700px; }
+        #winner-modal img { width: 150px; height: 150px; object-fit: contain; border-radius: 0.75rem; margin: 0 auto 1rem; background: #fff; }
+        #prize-title { font-size: 1.75rem; font-weight: 700; color: var(--calaba-blue); margin: 0.25rem 0;}
+        #prize-desc { font-size: 1rem; color: #4b5563; margin-bottom: 1.5rem; }
+        #winner-name { font-size: 2.5rem; font-weight: 800; color: var(--calaba-blue); margin: 0; }
+        #winner-details { font-size: 1.1rem; color: #64748b; margin: 0; }
+        
+        .drum-roll { padding: 4rem 0; width: 100%; }
+        .dot-container { display: flex; justify-content: center; gap: 1rem; }
+        .dot { width: 20px; height: 20px; border-radius: 50%; background: var(--calaba-teal); animation: bounce 1.4s infinite ease-in-out both; }
+        .dot-1 { animation-delay: -0.32s; }
+        .dot-2 { animation-delay: -0.16s; }
+        @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1.0); } }
+        #confetti { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2000; }
+    </style>
+</head>
+<body>
+    <canvas id="confetti"></canvas>
+    <div class="hero"><h1>SIG Raffle Drawing Tool</h1></div>
+    <div class="container">
+        <div class="card" id="setup-card">
+            <h2>Step 1: Start the Drawing</h2>
+            <p>Click "Start REAL Drawing" to load tickets. Add door-sale buyers below before starting.</p>
+            <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap;">
+                <button id="start-real-btn">Start REAL Drawing</button>
+                <button id="start-test-btn" style="background: #64748b;">Run a Test Drawing</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Add Door Sale / New Buyer</h2>
+            <p style="margin-bottom:1rem; color:#64748b;">Add walk-up buyers here before starting the drawing. Changes take effect when you click "Start REAL Drawing."</p>
+            <div style="display:grid; grid-template-columns:1fr 1fr auto auto; gap:0.75rem; align-items:end;">
+                <div>
+                    <label style="font-size:0.85rem;font-weight:600;color:#374151;display:block;margin-bottom:4px;">Name</label>
+                    <input type="text" id="new-buyer-name" placeholder="Full name" style="width:100%;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:1rem;box-sizing:border-box;">
+                </div>
+                <div>
+                    <label style="font-size:0.85rem;font-weight:600;color:#374151;display:block;margin-bottom:4px;">Email</label>
+                    <input type="email" id="new-buyer-email" placeholder="email@example.com" style="width:100%;padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:1rem;box-sizing:border-box;">
+                </div>
+                <div>
+                    <label style="font-size:0.85rem;font-weight:600;color:#374151;display:block;margin-bottom:4px;">Tickets</label>
+                    <select id="new-buyer-tickets" style="padding:10px;border:1px solid #d1d5db;border-radius:8px;font-size:1rem;width:auto;">
+                        <option value="1">1 ($10)</option>
+                        <option value="3">3 ($25)</option>
+                        <option value="7" selected>7 ($40)</option>
+                    </select>
+                </div>
+                <div>
+                    <button id="add-buyer-btn" style="padding:10px 16px;font-size:1rem;background:#10b981;">+ Add</button>
+                </div>
+            </div>
+            <div id="buyer-list" style="margin-top:1.25rem;">
+                <table style="width:100%;border-collapse:collapse;font-size:0.95rem;">
+                    <thead><tr style="background:#f1f5f9;"><th style="text-align:left;padding:8px 10px;">Name</th><th style="text-align:left;padding:8px 10px;">Email</th><th style="text-align:center;padding:8px 10px;">Tickets</th></tr></thead>
+                    <tbody id="buyer-table-body"></tbody>
+                </table>
+                <p id="buyer-total" style="font-weight:700;margin-top:0.75rem;color:#1e3a5f;"></p>
+            </div>
+        </div>
+        <div class="card"><h2 id="status">Ready to begin.</h2></div>
+        <div class="card" id="drawing-card" style="display:none;">
+            <h2>Step 2: Draw a Prize</h2>
+            <select id="prize-select"></select>
+            <button id="draw-btn">Draw Winner for this Prize</button>
+        </div>
+        <div class="card">
+            <h2>Drawn Winners</h2>
+            <ol id="drawn-winners"></ol>
+        </div>
+    </div>
+    <div id="winner-modal-overlay">
+        <div id="winner-modal"></div>
+    </div>
+    <script>
+        const PRIZES = [
+            { id: 'prize-1', title: "1-Hour Private Zoom Consultation", description: "With Dr. Peter Killeen", image: "https://www.abainternational.org/media/59054/killeenpeter.jpg", needsCertificate: true },
+            { id: 'prize-2', title: "75 Social Games & Activities", description: "From Dr. Jamie Hughes-Lika", image: "https://assets.lulu.com/cover_thumbs/e/7/e7j26ek-front-shortedge-384.jpg", needsAddress: true },
+            { id: 'prize-3', title: "Do Better Collective Bundle", description: "From Megan DeLeon Miller", image: "https://dobettercollective.com/wp-content/uploads/dbcfavicon-hq_opt-300x300.png" },
+            { id: 'prize-4', title: "Essential for Living Manual (Book 1 of 3)", description: "From Reginald Ponio, BABAC", image: "https://difflearn.com/cdn/shop/files/16.png?v=1759769483" },
+            { id: 'prize-5', title: "Essential for Living Manual (Book 2 of 3)", description: "From Reginald Ponio, BABAC", image: "https://difflearn.com/cdn/shop/files/16.png?v=1759769483" },
+            { id: 'prize-6', title: "Essential for Living Manual (Book 3 of 3)", description: "From Reginald Ponio, BABAC", image: "https://difflearn.com/cdn/shop/files/16.png?v=1759769483" },
+            { id: 'prize-7', title: "SBT Guidebook & Swag Bundle", description: "From Nicola Schneider", image: "https://www.pfasbtcommunity.com/storage/2024/06/PFA-SBT-Visual-4.2024-1.png" },
+            { id: 'prize-8', title: "Free Entry to OBM Practitioner Program", description: "From Mellanie Page", image: "mellanie-page.jpg" },
+            { id: 'prize-9', title: "Signed Book + 20-Min Mentor Session", description: "With Portia C. James", image: "https://static.wixstatic.com/media/4ddfbc_459d1af89362400fb82cd477f5faecdb~mv2.png" },
+            { id: 'prize-10', title: "1 Free BACB CEU — ABACC Workshop", description: "From Dr. Caroly Shumway", image: "https://images.squarespace-cdn.com/content/v1/66e4bf67342772361334d77e/4a74c9e9-aef5-490b-b7b9-33d3bed673ee/Color+logo+-+no+background.png" },
+            { id: 'prize-11', title: "6-Month Behavior Study Tools Subscription", description: "From Rob Spain", image: "https://calaba-sig-raffle.vercel.app/behaviorstudytools-certificate.png", needsCertificate: true }
+        ];
+        const realSalesData = [{"name":"Reginald Ponio", email:"rponio@reframingbehavior.com", "tickets":7}, {"name":"Rob Spain", email:"rob@thespains.org", "tickets":1}, {"name":"Denise Keller", email:"btadeni@msn.com", "tickets":7}, {"name":"Holly Northcross", email:"hollynorthcross@yahoo.com", "tickets":3}, {"name":"Daniel Mendoza", email:"mendoza.daniel.11@gmail.com", "tickets":10}, {"name":"Maryssa McKenzie", email:"maryssa.mckenzie@gmail.com", "tickets":1}, {"name":"Robin Scott", email:"robinandkiddos@gmail.com", "tickets":7}, {"name":"Tiana Barrios", "email":"tiana55@live.com", "tickets":7}, {"name":"Leslie Reynoso", "email":"leslierey97@gmail.com", "tickets":7}, {"name":"Christine Gorshe", "email":"cgorsheolsen@gmail.com", "tickets":7}];
+        const sampleSalesData = [ {"name":"Sample A", email:"a@test.com", "tickets":3}, {"name":"Sample B", email:"b@test.com", "tickets":1}, {"name":"Sample C", email:"c@test.com", "tickets":5} ];
+        let allTickets = [], eligibleTickets = [], availablePrizes = [], drawnWinners = [], claimedPrizes = new Set();
+        
+        const startRealBtn = document.getElementById('start-real-btn'), startTestBtn = document.getElementById('start-test-btn'), drawBtn = document.getElementById('draw-btn'), statusEl = document.getElementById('status'), prizeSelect = document.getElementById('prize-select'), winnerModalOverlay = document.getElementById('winner-modal-overlay'), winnerModal = document.getElementById('winner-modal'), drawnWinnersList = document.getElementById('drawn-winners');
+        
+        function saveState() { localStorage.setItem('raffleState', JSON.stringify({ drawnWinners, claimedPrizes: [...claimedPrizes] })); }
+        function loadState() {
+            const state = JSON.parse(localStorage.getItem('raffleState') || '{}');
+            drawnWinners = state.drawnWinners || [];
+            claimedPrizes = new Set(state.claimedPrizes || []);
+            renderDrawnWinners();
+        }
+        function renderDrawnWinners() {
+            drawnWinnersList.innerHTML = '';
+            drawnWinners.forEach(winner => addWinnerToList(winner, false));
+        }
+        function addWinnerToList(winner, save = true) {
+            if (save) drawnWinners.push(winner);
+            const li = document.createElement('li'), winnerId = `${winner.prize.id}-${winner.email}`;
+            const emailSubject = encodeURIComponent(`Your CalABA Raffle Prize: ${winner.prize.title}`);
+            const emailBody = encodeURIComponent(`Hi ${winner.name.split(' ')[0]},\\n\\nCongratulations! You won the following prize in the CalABA SIG Raffle:\\n\\n${winner.prize.title}\\n\\n[Add instructions for prize pickup here]\\n\\nThank you for supporting the CalABA Special Interest Groups!`);
+            const addressReminder = winner.prize.needsAddress
+                ? `<span style="color: #ef4444; font-weight: bold; margin-left: 8px;">(NEEDS ADDRESS)</span>`
+                : '';
+            const emailLink = winner.prize.needsCertificate 
+                ? `<a href="mailto:${winner.email}?subject=${emailSubject}&body=${emailBody}">Send Email</a> | ` 
+                : '';
+            li.innerHTML = `<span class="winner-info"><strong>(${winner.time}) ${winner.prize.title}:</strong> ${winner.name}${addressReminder}</span> <span class="actions-label">${emailLink}<label><input type="checkbox" data-id="${winnerId}" ${claimedPrizes.has(winnerId) ? 'checked' : ''}> Claimed</label></span>`;
+            drawnWinnersList.appendChild(li);
+            const checkbox = li.querySelector('input');
+            checkbox.addEventListener('change', () => { checkbox.checked ? claimedPrizes.add(winnerId) : claimedPrizes.delete(winnerId); saveState(); });
+        }
+        function prepareTickets(dataSource) {
+            allTickets = [];
+            dataSource.forEach(p => { for (let i = 0; i < p.tickets; i++) allTickets.push(p); });
+            eligibleTickets = [...allTickets];
+            availablePrizes = PRIZES.filter(p => !drawnWinners.some(w => w.prize.id === p.id));
+            updatePrizeDropdown();
+            statusEl.innerHTML = `✅ Prepared <strong>${allTickets.length}</strong> tickets. Select a prize to begin.`;
+            document.getElementById('setup-card').style.display = 'none';
+            document.getElementById('drawing-card').style.display = 'block';
+        }
+        function updatePrizeDropdown() {
+            prizeSelect.innerHTML = '';
+            availablePrizes.forEach((p, i) => { const opt = document.createElement('option'); opt.value = i; opt.textContent = p.title; prizeSelect.appendChild(opt); });
+        }
+
+        drawBtn.addEventListener('click', async () => {
+            // Re-fetch latest buyers so anyone who bought after drawing started is included
+            if (!isTestMode) {
+                const doorBuyers = await getConvexBuyers();
+                const latestBuyers = [...realSalesData, ...doorBuyers, ...extraBuyers];
+                const wonEmails = new Set(drawnWinners.map(w => w.email));
+                eligibleTickets = [];
+                latestBuyers.forEach(p => { if (!wonEmails.has(p.email)) { for (let i = 0; i < p.tickets; i++) eligibleTickets.push(p); } });
+            }
+            if (eligibleTickets.length === 0 || availablePrizes.length === 0) { alert("No more tickets or prizes!"); drawBtn.disabled = true; return; }
+            drawBtn.disabled = true;
+            winnerModal.innerHTML = `<div class="drum-roll"><div class="dot-container"><div class="dot dot-1"></div><div class="dot dot-2"></div><div class="dot dot-3"></div></div></div>`;
+            winnerModalOverlay.style.display = 'flex';
+            setTimeout(() => winnerModalOverlay.style.opacity = 1, 50);
+            await new Promise(resolve => setTimeout(resolve, 4000));
+            
+            const prizeIndex = parseInt(prizeSelect.value), prize = availablePrizes[prizeIndex];
+            const winnerIndex = Math.floor(Math.random() * eligibleTickets.length), winner = eligibleTickets[winnerIndex];
+            
+            winnerModal.innerHTML = `<div class="winner-content"><img src="${prize.image}" alt="${prize.title}" /><div class="winner-text"><p>WINNER OF THE:</p><h3 id="prize-title">${prize.title}</h3><p id="prize-desc">${prize.description}</p><h2 id="winner-name">${winner.name}</h2><p id="winner-details">(${winner.email})</p></div></div>`;
+            createConfetti();
+            
+            addWinnerToList({ prize, name: winner.name, email: winner.email, time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }) });
+            saveState();
+            // The prize is NOT removed, allowing for re-draws if unclaimed.
+            // availablePrizes.splice(prizeIndex, 1); 
+            updatePrizeDropdown();
+            if (!isTestMode) eligibleTickets = eligibleTickets.filter(t => t.email !== winner.email);
+            
+            statusEl.innerHTML = `<strong>${availablePrizes.length}</strong> prizes remaining.`;
+            drawBtn.disabled = false;
+            if (availablePrizes.length === 0 || eligibleTickets.length === 0) { drawBtn.disabled = true; statusEl.innerHTML += " Drawing complete!"; }
+        });
+        
+        // --- Door Sale Buyer Management ---
+        let extraBuyers = [];
+
+        const CONVEX_URL = 'https://lovely-manatee-270.convex.cloud';
+        async function getConvexBuyers() {
+            try {
+                const r = await fetch(`${CONVEX_URL}/api/query`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({path:'raffle:getBuyers',args:{}}) });
+                const d = await r.json();
+                return d.status === 'success' ? d.value : [];
+            } catch(e) { return []; }
+        }
+
+        async function renderBuyerTable() {
+            const doorFromConvex = await getConvexBuyers();
+            const allBuyers = [...realSalesData, ...doorFromConvex, ...extraBuyers];
+            const tbody = document.getElementById('buyer-table-body');
+            const total = document.getElementById('buyer-total');
+            tbody.innerHTML = allBuyers.map((b, i) => {
+                const isDoor = i >= realSalesData.length;
+                return `<tr style="border-bottom:1px solid #e5e7eb; ${isDoor ? 'background:#f0fdf4;' : ''}">
+                    <td style="padding:7px 10px;">${b.name}${isDoor ? ' <span style="font-size:0.75rem;color:#10b981;font-weight:700;">DOOR</span>' : ''}</td>
+                    <td style="padding:7px 10px;color:#64748b;">${b.email}</td>
+                    <td style="padding:7px 10px;text-align:center;font-weight:700;">${b.tickets}</td>
+                </tr>`;
+            }).join('');
+            const ticketSum = allBuyers.reduce((s, b) => s + b.tickets, 0);
+            total.textContent = `${allBuyers.length} buyers · ${ticketSum} total tickets`;
+        }
+        setInterval(renderBuyerTable, 5000);
+
+        document.getElementById('add-buyer-btn').addEventListener('click', async () => {
+            const name = document.getElementById('new-buyer-name').value.trim();
+            const email = document.getElementById('new-buyer-email').value.trim();
+            const tickets = parseInt(document.getElementById('new-buyer-tickets').value);
+            if (!name) { alert('Please enter a name'); return; }
+            const amount = tickets === 1 ? 10 : tickets === 3 ? 25 : 40;
+            await fetch(`${CONVEX_URL}/api/mutation`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({path:'raffle:addBuyer', args:{name, email: email||'door@calaba.org', tickets, amount, source:'door'}}) });
+            document.getElementById('new-buyer-name').value = '';
+            document.getElementById('new-buyer-email').value = '';
+            renderBuyerTable();
+        });
+
+        startRealBtn.addEventListener('click', async () => {
+            const doorBuyers = await getConvexBuyers();
+            const allBuyers = [...realSalesData, ...doorBuyers, ...extraBuyers];
+            const ticketSum = allBuyers.reduce((s, b) => s + b.tickets, 0);
+            if (confirm(`Start REAL drawing with ${allBuyers.length} buyers and ${ticketSum} tickets?\n\n(Includes ${doorBuyers.length} door sale${doorBuyers.length !== 1 ? 's' : ''} from checkin page)`)) { isTestMode = false; prepareTickets(allBuyers); }
+        });
+        startTestBtn.addEventListener('click', () => { isTestMode = true; prepareTickets(sampleSalesData); });
+
+        renderBuyerTable();
+        winnerModalOverlay.addEventListener('click', () => { winnerModalOverlay.style.opacity = 0; setTimeout(() => { winnerModalOverlay.style.display = 'none'; }, 300); });
+        
+        window.addEventListener('load', loadState);
+        const canvas = document.getElementById('confetti'); const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        const confettiColors = ['#0891b2', '#06b6d4', '#f59e0b', '#10b981', '#1e3a5f']; let confettiPieces = [];
+        function createConfetti() { confettiPieces = []; for (let i = 0; i < 200; i++) { confettiPieces.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height - canvas.height, size: Math.random() * 10 + 5, color: confettiColors[Math.floor(Math.random() * confettiColors.length)], speedY: Math.random() * 5 + 5, speedX: Math.random() * 6 - 3, rotation: Math.random() * 360, opacity: 1, }); } animateConfetti(); }
+        let confettiAnimationId; function animateConfetti() { ctx.clearRect(0, 0, canvas.width, canvas.height); confettiPieces.forEach((p, i) => { p.y += p.speedY; p.x += p.speedX; p.rotation += 5; p.opacity -= 0.01; if (p.y > canvas.height || p.opacity <= 0) confettiPieces.splice(i, 1); ctx.save(); ctx.globalAlpha = p.opacity; ctx.translate(p.x, p.y); ctx.rotate(p.rotation * Math.PI / 180); ctx.fillStyle = p.color; ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size); ctx.restore(); }); if (confettiPieces.length > 0) { confettiAnimationId = requestAnimationFrame(animateConfetti); } else { cancelAnimationFrame(confettiAnimationId); } }
+    </script>
+</body>
+</html>
