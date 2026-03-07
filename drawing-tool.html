@@ -63,7 +63,10 @@
             <button id="draw-btn">Draw Winner for this Prize</button>
         </div>
         <div class="card">
-            <h2>Drawn Winners</h2>
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;">
+                <h2 style="margin:0;border:none;padding:0;">Drawn Winners</h2>
+                <button id="reset-btn" onclick="if(confirm('Reset all drawn winners and start over?')){localStorage.removeItem(\'raffleState\');location.reload();}" style="background:#ef4444;color:white;border:none;padding:0.5rem 1rem;border-radius:6px;font-size:0.85rem;font-weight:700;cursor:pointer;">Reset / Start Over</button>
+            </div>
             <ol id="drawn-winners"></ol>
         </div>
 
