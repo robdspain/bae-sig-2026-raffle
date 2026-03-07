@@ -651,7 +651,7 @@
     </style>
     <!-- Vercel Web Analytics -->
     <script defer src="/_vercel/insights/script.js"></script>
-    <script src="https://www.paypal.com/sdk/js?client-id=BAARWJfoeglHbFDQEXxsjvCJd0cZuu14VRoRXrhDZOob5FSr2Y2IH2c3wEV3LhVFvpsPHkSQip9F9RV29Y&components=hosted-buttons&enable-funding=venmo&currency=USD" crossorigin="anonymous"></script>
+    <!-- PayPal SDK removed — using direct link instead -->
 </head>
 <body>
     <canvas id="confetti"></canvas>
@@ -663,9 +663,9 @@
             <h1>SIG Reception Book Raffle</h1>
             <p>Win books, consultations & more from CalABA speakers!<br><em>Proceeds benefit all CalABA Special Interest Groups</em></p>
             
-            <!-- Countdown removed - event is tomorrow! -->
+            <!-- Countdown removed - event is today! -->
             <p style="font-size: 1.3rem; font-weight: bold; color: #fbbf24; margin-top: 1rem;">
-                🎟️ Drawing: Tomorrow, March 6 at 6 PM
+                🎟️ Drawing: Tonight, March 6 at 5:30 PM
             </p>
         </div>
     </div>
@@ -703,7 +703,7 @@
                 </div>
                 <div class="event-item">
                     <div class="label">Drawings</div>
-                    <div class="value">From 6:30</div>
+                    <div class="value">From 5:30</div>
                 </div>
             </div>
         </div>
@@ -804,6 +804,16 @@
                 </div>
             </div>
 
+            <div class="prize">
+                <img src="fieldwork-book-cover.jpg" alt="Fieldwork and Supervision for Behavior Analysts" style="width:80px;height:80px;object-fit:contain;border-radius:8px;flex-shrink:0;">
+                <div>
+                    <h3>Fieldwork and Supervision for Behavior Analysts: A Handbook (2nd Ed.)</h3>
+                    <p class="description">The definitive competency-based guide to BCBA supervision — 418 pages of step-by-step strategies, case scenarios, meeting templates, and activities for both supervisors and supervisees. Includes CourseConnect interactive learning platform. Aligns with the BACB Task List (6th ed.).</p>
+                    <p class="donor"><strong>Ellie Kazemi, PhD, BCBA-D</strong> — Professor of Psychology, California State University Northridge. Researcher, supervisor trainer, and one of the leading voices in behavior analytic supervision. <strong>Peter Adzhyan, PsyD, LEP, BCBA-D</strong> &amp; <strong>Brian Rice, MA, BCBA</strong> — CSUN practicum faculty with decades of combined supervisory experience across clinical and educational settings.</p>
+                    <span class="value">Value: $85</span>
+                </div>
+            </div>
+
         </div>
 
         <div class="card">
@@ -814,7 +824,7 @@
             
             <div class="urgency-banner">
                 <span class="urgency-icon">⏰</span>
-                <span class="urgency-text"><strong>Online sales end Friday, March 6 at 12 PM!</strong> Get your tickets now before the cutoff.</span>
+                <span class="urgency-text"><strong>Online sales end Friday, March 6 at 5 PM!</strong> Get your tickets now before the reception.</span>
             </div>
             
             <div style="display: grid; gap: 12px; margin: 16px 0 20px;">
@@ -826,18 +836,24 @@
                     onfocus="this.style.borderColor='var(--calaba-teal)'" onblur="this.style.borderColor='var(--border)'">
             </div>
 
+            <div style="text-align:center; margin: 1.5rem 0; padding: 1.5rem; background: #f8fafc; border-radius: 12px; border: 2px solid #e2e8f0;">
+                <p style="font-weight:700; font-size:1.1rem; margin:0 0 1rem; color:#1e3a5f;">Scan to Pay with PayPal</p>
+                <img src="paypal-qr-code.jpg" alt="PayPal QR Code — SIG Reception Donation" style="width:200px;height:200px;object-fit:contain;border-radius:8px;display:block;margin:0 auto;">
+                <p style="font-size:0.85rem; color:#64748b; margin:0.75rem 0 0;">Or click a ticket option below</p>
+            </div>
+
             <div class="ticket-grid">
-                <a href="#" class="ticket-option" id="ticket-1" data-tickets="1" data-amount="10">
+                <a href="https://www.paypal.com/ncp/payment/S2SUQFGT9XSSQ" target="_blank" rel="noopener" class="ticket-option" id="ticket-1" data-tickets="1" data-amount="10">
                     <span class="price">$10</span>
                     <span class="count">1 ticket</span>
                     <span class="per-ticket">$10 each</span>
                 </a>
-                <a href="#" class="ticket-option" id="ticket-3" data-tickets="3" data-amount="25">
+                <a href="https://www.paypal.com/ncp/payment/S2SUQFGT9XSSQ" target="_blank" rel="noopener" class="ticket-option" id="ticket-3" data-tickets="3" data-amount="25">
                     <span class="price">$25</span>
                     <span class="count">3 tickets</span>
                     <span class="per-ticket">$8.33 each</span>
                 </a>
-                <a href="#" class="ticket-option featured" id="ticket-7" data-tickets="7" data-amount="40">
+                <a href="https://www.paypal.com/ncp/payment/S2SUQFGT9XSSQ" target="_blank" rel="noopener" class="ticket-option featured" id="ticket-7" data-tickets="7" data-amount="40">
                     <span class="price">$40</span>
                     <span class="count">7 tickets</span>
                     <span class="per-ticket">$5.71 each</span>
@@ -845,15 +861,15 @@
             </div>
 
             <div style="margin-top: 16px; text-align: center;">
-                <div id="paypal-container-S2SUQFGT9XSSQ"></div>
+
                 <p style="font-size: 12px; color: var(--text-secondary); margin-top: 8px;">Secure checkout powered by PayPal</p>
             </div>
             <div class="rules">
                 <h3>⚠️ Must Be Present to Win</h3>
                 <ul>
                     <li><strong>You must be present to win!</strong> Winners drawn throughout the event.</li>
-                    <li>Raffle drawings begin at 6:30 PM and continue throughout the reception</li>
-                    <li>Online ticket sales close Friday at 12 PM</li>
+                    <li>Raffle drawings begin at 5:30 PM and continue throughout the reception</li>
+                    <li>Online ticket sales close Friday at 5 PM</li>
                     <li>Tickets also available at the door during the reception</li>
                 </ul>
             </div>

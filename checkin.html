@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIG Raffle — Ticket Registration</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --blue: #1e3a5f; --teal: #0891b2; --green: #10b981; --accent: #f59e0b; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background: #f1f5f9; color: #111827; }
+        .hero { background: linear-gradient(135deg, var(--blue) 0%, #0c4a6e 50%, var(--teal) 100%); color: white; padding: 2rem; text-align: center; }
+        .hero h1 { font-size: 1.75rem; font-weight: 800; }
+        .hero p { opacity: 0.85; margin-top: 0.5rem; }
+        .container { max-width: 700px; margin: 0 auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem; }
+        .card { background: white; border-radius: 1rem; padding: 1.5rem; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+        h2 { color: var(--blue); font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--teal); }
+        .qr-wrap { text-align: center; }
+        .qr-wrap img { width: 220px; height: 220px; object-fit: contain; border-radius: 12px; border: 3px solid #e2e8f0; }
+        .qr-wrap p { margin-top: 0.75rem; color: #64748b; font-size: 0.9rem; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+        .form-grid .full { grid-column: 1 / -1; }
+        label { font-size: 0.8rem; font-weight: 600; color: #374151; display: block; margin-bottom: 4px; }
+        input, select { width: 100%; padding: 10px 12px; border: 1.5px solid #d1d5db; border-radius: 8px; font-size: 1rem; font-family: inherit; }
+        input:focus, select:focus { outline: none; border-color: var(--teal); }
+        .btn { width: 100%; padding: 12px; border: none; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 0.75rem; }
+        .btn-add { background: var(--green); color: white; }
+        .btn-add:hover { background: #059669; }
+        .ticket-amounts { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.5rem; margin-bottom: 0.25rem; }
+        .tier { border: 2px solid #d1d5db; border-radius: 8px; padding: 10px; text-align: center; cursor: pointer; transition: all 0.15s; }
+        .tier:hover, .tier.selected { border-color: var(--teal); background: #e0f2fe; }
+        .tier .price { font-size: 1.3rem; font-weight: 800; color: var(--blue); }
+        .tier .count { font-size: 0.8rem; color: #64748b; }
+        .tier.best { border-color: var(--accent); background: #fefce8; }
+        .tier.best.selected { background: #fde68a; }
+        .star { font-size: 0.7rem; background: var(--accent); color: white; padding: 1px 6px; border-radius: 999px; font-weight: 700; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        th { text-align: left; padding: 8px 10px; background: #f1f5f9; color: #374151; font-size: 0.8rem; font-weight: 600; }
+        td { padding: 8px 10px; border-bottom: 1px solid #e5e7eb; }
+        .badge-door { font-size: 0.7rem; background: #dcfce7; color: #166534; padding: 2px 6px; border-radius: 999px; font-weight: 700; margin-left: 4px; }
+        .badge-pre { font-size: 0.7rem; background: #e0f2fe; color: #0c4a6e; padding: 2px 6px; border-radius: 999px; font-weight: 700; margin-left: 4px; }
+        .total-bar { background: #1e3a5f; color: white; padding: 0.75rem 1rem; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; margin-top: 1rem; }
+        .success-msg { display: none; background: #dcfce7; color: #166534; padding: 10px 14px; border-radius: 8px; font-weight: 600; margin-top: 0.75rem; }
+        .sync-note { background: #fef3c7; border: 1px solid #fbbf24; border-radius: 8px; padding: 10px 14px; font-size: 0.85rem; color: #92400e; margin-top: 0.5rem; }
+    </style>
+</head>
+<body>
+<div class="hero">
+    <h1>SIG Reception Raffle</h1>
+    <p>Ticket Registration &amp; Door Sales — CalABA 2026</p>
+</div>
+<div class="container">
+
+    <div class="card">
+        <h2>Scan to Pay with PayPal</h2>
+        <div class="qr-wrap">
+            <img src="paypal-qr-code.jpg" alt="PayPal QR Code">
+            <p>After paying, register name + email below</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Register a Ticket Buyer</h2>
+        <div class="form-grid">
+            <div class="full">
+                <label>Full Name</label>
+                <input type="text" id="name" placeholder="First Last">
+            </div>
+            <div class="full">
+                <label>Email Address</label>
+                <input type="email" id="email" placeholder="email@example.com">
+            </div>
+            <div class="full">
+                <label>Amount Paid</label>
+                <div class="ticket-amounts">
+                    <div class="tier" data-tickets="1" data-amount="10" onclick="selectTier(this)">
+                        <div class="price">$10</div>
+                        <div class="count">1 ticket</div>
+                    </div>
+                    <div class="tier" data-tickets="3" data-amount="25" onclick="selectTier(this)">
+                        <div class="price">$25</div>
+                        <div class="count">3 tickets</div>
+                    </div>
+                    <div class="tier best selected" data-tickets="7" data-amount="40" onclick="selectTier(this)">
+                        <div class="price">$40</div>
+                        <div class="count">7 tickets</div>
+                        <div><span class="star">BEST VALUE</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-add" onclick="addBuyer()">+ Add Buyer</button>
+        <div class="success-msg" id="success-msg">Added! Buyer registered and synced to drawing tool.</div>
+    </div>
+
+    <div class="card">
+        <h2>All Ticket Buyers (<span id="buyer-count">0</span> buyers · <span id="ticket-count">0</span> tickets)</h2>
+        <div class="sync-note">Drawing tool at <strong>calaba-sig-raffle.vercel.app/drawing-tool.html</strong> syncs automatically — open on any screen on the same device, or use the same browser.</div>
+        <table style="margin-top:1rem;">
+            <thead><tr><th>Name</th><th>Email</th><th style="text-align:center;">Tickets</th><th>Source</th></tr></thead>
+            <tbody id="buyer-tbody"></tbody>
+        </table>
+        <div class="total-bar">
+            <span>Total Tickets in Pool</span>
+            <span id="total-tickets-bar">0</span>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    const PRE_LOADED = [
+        {"name":"Reginald Ponio","email":"rponio@reframingbehavior.com","tickets":7},
+        {"name":"Rob Spain","email":"rob@thespains.org","tickets":1},
+        {"name":"Denise Keller","email":"btadeni@msn.com","tickets":7},
+        {"name":"Holly Northcross","email":"hollynorthcross@yahoo.com","tickets":3},
+        {"name":"Daniel Mendoza","email":"mendoza.daniel.11@gmail.com","tickets":10},
+        {"name":"Maryssa McKenzie","email":"maryssa.mckenzie@gmail.com","tickets":1},
+        {"name":"Robin Scott","email":"robinandkiddos@gmail.com","tickets":7},
+        {"name":"Tiana Barrios","email":"tiana55@live.com","tickets":7},
+        {"name":"Leslie Reynoso","email":"leslierey97@gmail.com","tickets":7},
+        {"name":"Christine Gorshe","email":"cgorsheolsen@gmail.com","tickets":7}
+    ];
+
+    let selectedTickets = 7;
+
+    function selectTier(el) {
+        document.querySelectorAll('.tier').forEach(t => t.classList.remove('selected'));
+        el.classList.add('selected');
+        selectedTickets = parseInt(el.dataset.tickets);
+    }
+
+    const CONVEX_URL = 'https://lovely-manatee-270.convex.cloud';
+
+    async function convexQuery(path, args = {}) {
+        const r = await fetch(`${CONVEX_URL}/api/query`, {
+            method: 'POST', headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({ path, args })
+        });
+        const d = await r.json();
+        return d.status === 'success' ? d.value : [];
+    }
+
+    async function convexMutation(path, args = {}) {
+        const r = await fetch(`${CONVEX_URL}/api/mutation`, {
+            method: 'POST', headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({ path, args })
+        });
+        return await r.json();
+    }
+
+    async function addBuyer() {
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        if (!name) { alert('Please enter a name'); return; }
+        const amount = selectedTickets === 1 ? 10 : selectedTickets === 3 ? 25 : 40;
+        await convexMutation('raffle:addBuyer', { name, email: email || 'door@calaba.org', tickets: selectedTickets, amount, source: 'door' });
+        document.getElementById('name').value = '';
+        document.getElementById('email').value = '';
+        const msg = document.getElementById('success-msg');
+        msg.style.display = 'block';
+        setTimeout(() => msg.style.display = 'none', 3000);
+        await renderTable();
+    }
+
+    async function renderTable() {
+        const door = await convexQuery('raffle:getBuyers');
+        const all = [...PRE_LOADED.map(b => ({...b, source:'pre'})), ...door];
+        const tbody = document.getElementById('buyer-tbody');
+        tbody.innerHTML = all.map(b => `
+            <tr>
+                <td>${b.name}</td>
+                <td style="color:#64748b;font-size:0.85rem;">${b.email}</td>
+                <td style="text-align:center;font-weight:700;">${b.tickets}</td>
+                <td><span class="${b.source === 'door' ? 'badge-door' : 'badge-pre'}">${b.source === 'door' ? 'DOOR' : 'ONLINE'}</span></td>
+            </tr>`).join('');
+        const total = all.reduce((s, b) => s + b.tickets, 0);
+        document.getElementById('buyer-count').textContent = all.length;
+        document.getElementById('ticket-count').textContent = total;
+        document.getElementById('total-tickets-bar').textContent = total;
+    }
+
+    renderTable();
+    setInterval(renderTable, 5000);
+</script>
+</body>
+</html>

@@ -1,52 +1,43 @@
-// api/log-sale.js — Vercel serverless function
-// Logs PayPal raffle purchases to Google Sheet via Apps Script web app
-
-const { ConvexHttpClient } = require("convex/browser");
-
-module.exports = async (req, res) => {
-  // ... (CORS headers)
+export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  if (req.method === 'OPTIONS') return res.status(200).end();
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-  // ...
+  const { name, email, tickets, amount } = req.body || {};
+  if (!name) return res.status(400).json({ error: 'Missing name' });
 
-  const { name, email, amount, tickets, orderId, timestamp } = req.body;
-  
-  const saleData = {
-    timestamp: timestamp || new Date().toISOString(),
-    name,
-    email,
-    amount,
-    tickets,
-    orderId: orderId || '',
-    method: 'paypal'
-  };
+  const RESEND_API_KEY = 're_9jS7EXqT_J4sbfJz6aCjBSNRQ2yDijLcu';
 
-  // --- Log to Google Sheet (existing logic) ---
-  const APPS_SCRIPT_URL = process.env.SHEETS_WEBHOOK_URL;
-  if (APPS_SCRIPT_URL) {
-    fetch(APPS_SCRIPT_URL, {
+  try {
+    await fetch('https://api.resend.com/emails', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(saleData),
-    }).catch(err => console.error('Sheet log failed:', err));
+      headers: {
+        'Authorization': `Bearer ${RESEND_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        from: 'raffle@updates.behaviorschool.com',
+        to: ['robspain@gmail.com', 'california.bae.sig@gmail.com'],
+        subject: `🎟️ New Raffle Sale: ${name} — ${tickets} ticket${tickets > 1 ? 's' : ''} ($${amount})`,
+        html: `
+          <h2>New Raffle Ticket Purchase</h2>
+          <table style="border-collapse:collapse;width:100%;max-width:400px;">
+            <tr><td style="padding:8px;font-weight:bold;background:#f1f5f9;">Name</td><td style="padding:8px;">${name}</td></tr>
+            <tr><td style="padding:8px;font-weight:bold;background:#f1f5f9;">Email</td><td style="padding:8px;">${email || '(not provided)'}</td></tr>
+            <tr><td style="padding:8px;font-weight:bold;background:#f1f5f9;">Tickets</td><td style="padding:8px;">${tickets}</td></tr>
+            <tr><td style="padding:8px;font-weight:bold;background:#f1f5f9;">Amount</td><td style="padding:8px;">$${amount}</td></tr>
+            <tr><td style="padding:8px;font-weight:bold;background:#f1f5f9;">Time</td><td style="padding:8px;">${new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' })} PT</td></tr>
+          </table>
+          <p style="margin-top:16px;color:#64748b;font-size:14px;">Add to drawing tool: <a href="https://calaba-sig-raffle.vercel.app/drawing-tool.html">drawing-tool.html</a></p>
+        `
+      })
+    });
+
+    return res.status(200).json({ success: true });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Failed to send notification' });
   }
-
-  // --- Log to Convex DB (new logic) ---
-  const CONVEX_URL = process.env.CONVEX_URL;
-  if (CONVEX_URL) {
-    try {
-      const convex = new ConvexHttpClient(CONVEX_URL);
-      await convex.mutation("raffle:logSale", saleData);
-    } catch (err) {
-      console.error('Convex log failed:', err);
-    }
-  }
-
-  return res.status(200).json({ status: 'success', message: 'Log requests initiated' });
-};
-
+}

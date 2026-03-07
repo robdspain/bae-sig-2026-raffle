@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BAE SIG Raffle Certificate — {{WINNER_NAME}}</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #f0f4f8;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    .certificate {
+      background: #fff;
+      width: 800px;
+      padding: 0;
+      border-radius: 4px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Gold border frame */
+    .certificate::before {
+      content: '';
+      position: absolute;
+      inset: 12px;
+      border: 2px solid #c9a84c;
+      border-radius: 2px;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* Header band */
+    .cert-header {
+      background: linear-gradient(135deg, #1e3a5f 0%, #0c4a6e 60%, #0e6494 100%);
+      padding: 2rem 3rem 1.5rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .cert-header::after {
+      content: '';
+      display: block;
+      height: 4px;
+      background: linear-gradient(90deg, transparent, #c9a84c, #e8c96e, #c9a84c, transparent);
+      margin-top: 1.5rem;
+    }
+
+    .logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .logos img {
+      height: 48px;
+      filter: brightness(0) invert(1);
+      opacity: 0.9;
+    }
+
+    .logo-divider {
+      width: 1px;
+      height: 36px;
+      background: rgba(255,255,255,0.3);
+    }
+
+    .cert-header h1 {
+      font-family: 'Playfair Display', serif;
+      color: #fff;
+      font-size: 1rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      font-weight: 400;
+      opacity: 0.85;
+    }
+
+    /* Body */
+    .cert-body {
+      padding: 2.5rem 3.5rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .presents-text {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #94a3b8;
+      margin-bottom: 0.5rem;
+    }
+
+    .cert-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.25rem;
+      color: #1e3a5f;
+      font-weight: 700;
+      margin-bottom: 1.75rem;
+      line-height: 1.2;
+    }
+
+    .awarded-to {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #94a3b8;
+      margin-bottom: 0.4rem;
+    }
+
+    .winner-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.75rem;
+      color: #1e3a5f;
+      font-weight: 700;
+      border-bottom: 2px solid #c9a84c;
+      display: inline-block;
+      padding-bottom: 0.4rem;
+      margin-bottom: 1.75rem;
+      min-width: 320px;
+    }
+
+    .prize-section {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem 2rem;
+      margin-bottom: 1.75rem;
+      display: inline-block;
+      min-width: 420px;
+    }
+
+    .prize-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #94a3b8;
+      margin-bottom: 0.35rem;
+    }
+
+    .prize-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: #1e3a5f;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .prize-donor {
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+
+    .prize-donor span {
+      font-weight: 600;
+      color: #1e3a5f;
+    }
+
+    .event-info {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      letter-spacing: 0.05em;
+      margin-bottom: 2rem;
+    }
+
+    /* Footer */
+    .cert-footer {
+      border-top: 1px solid #e2e8f0;
+      padding: 1.25rem 3.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .sig-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .sig-badge img {
+      height: 32px;
+      opacity: 0.6;
+    }
+
+    .sig-badge-text {
+      font-size: 0.7rem;
+      color: #94a3b8;
+      line-height: 1.4;
+    }
+
+    .sig-badge-text strong {
+      display: block;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .cert-date {
+      text-align: right;
+    }
+
+    .cert-date .date-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #94a3b8;
+      margin-bottom: 0.2rem;
+    }
+
+    .cert-date .date-value {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #1e3a5f;
+    }
+
+    .gold-star {
+      color: #c9a84c;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Corner ornaments */
+    .ornament {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      opacity: 0.3;
+    }
+    .ornament-tl { top: 20px; left: 20px; border-top: 3px solid #c9a84c; border-left: 3px solid #c9a84c; }
+    .ornament-tr { top: 20px; right: 20px; border-top: 3px solid #c9a84c; border-right: 3px solid #c9a84c; }
+    .ornament-bl { bottom: 20px; left: 20px; border-bottom: 3px solid #c9a84c; border-left: 3px solid #c9a84c; }
+    .ornament-br { bottom: 20px; right: 20px; border-bottom: 3px solid #c9a84c; border-right: 3px solid #c9a84c; }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .certificate { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="certificate">
+    <!-- Corner ornaments -->
+    <div class="ornament ornament-tl"></div>
+    <div class="ornament ornament-tr"></div>
+    <div class="ornament ornament-bl"></div>
+    <div class="ornament ornament-br"></div>
+
+    <!-- Header -->
+    <div class="cert-header">
+      <div class="logos">
+        <img src="bae-sig-logo.svg" alt="BAE SIG">
+        <div class="logo-divider"></div>
+        <img src="calaba-logo.svg" alt="CalABA">
+      </div>
+      <h1>Behavior Analysis in Education SIG &nbsp;·&nbsp; CalABA 2026</h1>
+    </div>
+
+    <!-- Body -->
+    <div class="cert-body">
+      <p class="presents-text">Proudly presents this</p>
+      <h2 class="cert-title">Raffle Prize Certificate</h2>
+
+      <p class="awarded-to">Awarded to</p>
+      <div class="winner-name">{{WINNER_NAME}}</div>
+
+      <br>
+
+      <div class="prize-section">
+        <p class="prize-label">Prize Awarded</p>
+        <p class="prize-name">{{PRIZE_NAME}}</p>
+        <p class="prize-donor">Generously donated by <span>{{DONOR_NAME}}</span></p>
+      </div>
+
+      <p class="event-info">
+        Drawn at the BAE SIG Reception &nbsp;·&nbsp; CalABA Annual Conference, San Diego, CA &nbsp;·&nbsp; March 2026
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <div class="cert-footer">
+      <div class="sig-badge">
+        <img src="bae-sig-logo.svg" alt="BAE SIG">
+        <div class="sig-badge-text">
+          <strong>BAE SIG</strong>
+          Behavior Analysis in Education<br>Special Interest Group
+        </div>
+      </div>
+
+      <div class="gold-star">&#9733; &#9733; &#9733;</div>
+
+      <div class="cert-date">
+        <div class="date-label">Date Issued</div>
+        <div class="date-value">{{DATE}}</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

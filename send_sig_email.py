@@ -157,10 +157,31 @@ If you haven't grabbed a ticket yet, now's the time:
 
 Tickets start at $10 — discounts when you buy more. Huge prizes. All SIGs benefit.
 
-See you at CalABA 🎉
+See you at CalABA
 
 Rob Spain, BCBA, IBA
-President, BAE SIG"""
+President, Behavior Analysts in Education SIG"""
+    },
+    8: {
+        'subject': 'CalABA Special Interest Group Reception — Friday at 6:00 PM',
+        'body': """Hi {first_name},
+
+Quick reminder: the CalABA Special Interest Group Reception is Friday night at 6:00 PM — and the raffle closes there.
+
+Today’s donor spotlight: Meghann DeLeon Miller
+Meghann is presenting “Unlocking the Potential of Active Engagement” on Friday, March 6 (2:00–3:00 PM, Ballroom A). Her session focuses on practical, research-informed strategies for building active engagement in learners — especially relevant for school-based practitioners.
+
+She also leads a full-day workshop on Trauma-Informed Escape Behaviors (Thu, Mar 5) and appears on a panel about practicing ABA with sudden chronic illness/disability (Fri, Mar 6).
+
+If you haven’t grabbed a ticket yet, now’s the time:
+👉 https://calaba-sig-raffle.vercel.app
+
+Tickets start at $10 — and there’s a discount when you buy multiple tickets.
+
+Thank you for supporting all CalABA Special Interest Groups.
+
+Rob Spain, BCBA, IBA
+President, Behavior Analysts in Education SIG"""
     }
 }
 
@@ -199,7 +220,7 @@ def send_email(to_email, to_name, subject, body):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--email-num', type=int, required=True, choices=range(1,8))
+    parser.add_argument('--email-num', type=int, required=True, choices=range(1,9))
     parser.add_argument('--dry-run', action='store_true', help='Print first 3 without sending')
     parser.add_argument('--limit', type=int, default=None, help='Only send to first N recipients')
     args = parser.parse_args()
@@ -236,7 +257,7 @@ def main():
             failed += 1
             print(f"  ❌ {i+1}/{len(members)} {m['email']} — {resp}")
         if i < len(members) - 1:
-            time.sleep(0.2)  # stay under rate limits
+            time.sleep(0.6)  # stay under rate limits
 
     print(f"\n✅ Sent: {sent} | ❌ Failed: {failed}")
 
