@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   const { name, email, tickets, amount } = req.body || {};
   if (!name) return res.status(400).json({ error: 'Missing name' });
 
-  const RESEND_API_KEY = 're_9jS7EXqT_J4sbfJz6aCjBSNRQ2yDijLcu';
+  const RESEND_API_KEY = process.env.RESEND_API_KEY;
 
   try {
     await fetch('https://api.resend.com/emails', {
