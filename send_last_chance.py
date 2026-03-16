@@ -4,7 +4,9 @@
 import csv, os, time, json
 import urllib.request, urllib.error
 
-RESEND_API_KEY = 're_9jS7EXqT_J4sbfJz6aCjBSNRQ2yDijLcu'
+RESEND_API_KEY = os.environ.get('RESEND_API_KEY')
+if not RESEND_API_KEY:
+    raise ValueError("RESEND_API_KEY environment variable not set")
 FROM_EMAIL = 'BAE SIG <noreply@updates.behaviorschool.com>'
 REPLY_TO = 'california.bae.sig@gmail.com'
 CSV_FILE = os.path.join(os.path.dirname(__file__), 'campaign', 'sig_members_merged.csv')
